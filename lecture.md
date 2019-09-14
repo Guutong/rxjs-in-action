@@ -7,12 +7,23 @@
   - complete()
 
 # Subscription (ผู้รับ)
+```js
+const obs$ = interval(1000);
 
-  - next()
-  - error()
-  - complete()
+obs$.subscribe(
+  (next) => {console.log('subscribe next', next)},
+  (error) => {console.log('subscribe error', error)},
+  () => {console.log('subscribe complete')}
+);
+// or
+obs$.subscribe({
+  next: (next) => { console.log('subscribe next', next); },
+  error: (error) => { console.log('subscribe error', error); },
+  complete: () => { console.log('subscribe complete'); },
+});
+```
 
-```ts
+```js
 const obs$ = new Observable((observer) => {
   let i = 0;
   const loop = setInterval(() => {
@@ -33,6 +44,7 @@ obs$.subscribe(
   () => {console.log('subscribe complete')}
 );
 ```
+
 # Stream
     การไหล ทิศทางเดียว
     Observable (Producer)
@@ -40,8 +52,7 @@ obs$.subscribe(
     Subscription (Consumer)
 
 ## Pipe 
-  คือ สิ่งที่เกิดขึ้นระหว่าผู้ขายกับผู้ซื้อ
-  หรือ ของที่คั่น ระหว่างผู้งส่ง กับ ผู้รับ
+    คือ สิ่งที่เกิดขึ้นระหว่างผู้ขายกับผู้ซื้อ หรือ ของที่คั่นระหว่างผู้งส่งกับผู้รับ
 
 ## Operator 
 - Creation
@@ -60,6 +71,7 @@ obs$.subscribe(
   - scan
 - Filter
   - take
+  - filter
 - Combination
   - forkJoin
   - pairwise
@@ -70,12 +82,22 @@ obs$.subscribe(
   - combineLastest
   - startWith
 - Condition
+  -
 - Error handering
+  - catchError
 - Utility
   - delay
   - tap
 - Multicasting
+  - publish
+  - multicast 
+  - share
+  - shareReplay
 - Subject
+  - Subject
+  - BehaviorSubject
+  - AsyncSubject
+  - ReplaySubject
 
 ### Creation 
 - empty สร้างแล้ว complete เลย
@@ -85,18 +107,19 @@ empty().subscribe({
   error: (e) => {console.log('subscribe error: ', e)},
   complete: () => {console.log('subscribe complete')}
 });
+
 // Console
 // subscribe complete
-
 ```
 
-- create สร้าง เหมือน new observable
+- create `Observable.create` เหมือนกันกับ `new Observable();`
 ```ts
 Observable.create((obs) => obs.next(1)).subscribe({
   next: (n) => {console.log('subscribe next', n)},
   error: (e) => {console.log('subscribe error: ', e)},
   complete: () => {console.log('subscribe complete')}
 });
+
 // Console
 // subscribe next: 1
 ```
