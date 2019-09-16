@@ -100,7 +100,7 @@ obs$.subscribe(
   - ReplaySubject
 
 ### Creation 
-- empty สร้างแล้ว complete เลย
+- `empty` สร้างแล้ว complete เลย
 ```ts
 empty().subscribe({
   next: (n) => {console.log('subscribe next: ', n)},
@@ -112,7 +112,7 @@ empty().subscribe({
 // subscribe complete
 ```
 
-- create `Observable.create` เหมือนกันกับ `new Observable();`
+- `create`, `Observable.create` เหมือนกันกับ `new Observable();`
 ```ts
 Observable.create((obs) => obs.next(1)).subscribe({
   next: (n) => {console.log('subscribe next', n)},
@@ -125,7 +125,7 @@ Observable.create((obs) => obs.next(1)).subscribe({
 ```
 
 
-- of สร้างของที่จะใส่ไปให้ออกมา(next) แล้ว complete เลย
+- `of` สร้างของที่จะใส่ไปให้ออกมา(next) แล้ว complete เลย
 ```ts
 of(1, 2, 3).subscribe({
   next: (n) => {console.log('subscribe next: ', n)},
@@ -139,10 +139,10 @@ of(1, 2, 3).subscribe({
 // subscribe complete
 ```
 
-- from 
+- `from` 
   แปลงค่าให้มาอยู่ในรูปของ obserable Array, Map, Promise
 
-- fromEvent
+- `fromEvent`
   mouse, keyboard, scroll
 ```ts  
 fromEvent(document, 'mousemove').subscribe({
@@ -152,7 +152,7 @@ fromEvent(document, 'mousemove').subscribe({
 });
 ```
 
-- throwError
+- `throwError`
   คล้ายๆกับnew throw error
 ```ts
 throwError('error ja').subscribe({
@@ -165,7 +165,7 @@ throwError('error ja').subscribe({
 // subscribe error: error ja
 ```
 
-- interval 
+- `interval` 
   เหมือนของ js
 ```ts
 interval(1000).subscribe({
@@ -208,12 +208,12 @@ fromEvent(button, 'click')
 ### Conditional
   if-else
 
-- defaultIfEmpty  
+- `defaultIfEmpty`  
 ```js
 
 ```
 
-- every ถ้้าที่เป็น `จริง` ทั้งหมด `จริง` ถ้ามี `เท็จ` หนึ่งตัวเป็น `เท็จ` เลย
+- `every` ถ้้าที่เป็น `จริง` ทั้งหมด `จริง` ถ้ามี `เท็จ` หนึ่งตัวเป็น `เท็จ` เลย
 ```js
 from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 .pipe(
@@ -228,7 +228,7 @@ from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 // subscribe next true
 // subscribe complete
 ```
-- mergeMap แปลงค่าและ คืนค่า Observable
+- `mergeMap` แปลงค่าและ คืนค่า Observable
 
 ```js
 from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
@@ -267,7 +267,7 @@ interval(1000)
 ```
 
 
-- tap 
+- `tap` 
   ทำอะไรก็ได้ ดูค่าก่อนที่จะไป seq ถัดไป
 
 ```js
@@ -297,7 +297,7 @@ interval(1000)
 
 ### Combination
   รวม Observable
-- forkJoin มันจะรอให้ complete ทั้งหมดก่อน
+- `forkJoin` มันจะรอให้ complete ทั้งหมดก่อน
 ```js
 forkJoin(of(1), of(2), of(3))
 .subscribe({
@@ -308,7 +308,7 @@ forkJoin(of(1), of(2), of(3))
 ```
 
 
-- pairwise คือการเราจะเปรียบเทียบค่าใหม่กับค่าเก่า (เอา state ก่อนหน้ามาด้วย)
+- `pairwise` คือการเราจะเปรียบเทียบค่าใหม่กับค่าเก่า (เอา state ก่อนหน้ามาด้วย)
 ```js
 interval(1000)
 .pipe(pairwise())
@@ -343,9 +343,9 @@ of(1, 1, 2)
 // subscribe complete
 
 ```
-- startWith ทำก่อน sub
+- `startWith` ทำก่อน sub
 
-- merge คือ การรวมของที่ observable ส่งมา 
+- `merge` คือ การรวมของที่ observable ส่งมา 
 ```js
 const a = interval(1000) 
 const b = interval(2000) 
@@ -382,7 +382,7 @@ forkJoin(increase$, decrease$)
 
 ```
 
-- mergeAll แปลงค่าก่อน complete (ต้อง cpmplete *ขึ้นต้นด้วย merge ไม่สนใจ seq)
+- `mergeAll` แปลงค่าก่อน complete (ต้อง cpmplete *ขึ้นต้นด้วย merge ไม่สนใจ seq)
 ```js
 of(1,2,3)
 .pipe(
@@ -397,7 +397,7 @@ of(1,2,3)
 });
 ```
 
-- concat ทำตาม seq และที่ละตัว ต้อง completeด้วย
+- `concat` ทำตาม seq และที่ละตัว ต้อง completeด้วย
 ```js
 concat(
   of(1,2,3),
@@ -420,7 +420,7 @@ concat(
 // subscribe complete
 ```
 
-- concatAll รับ Observable
+- `concatAll` รับ Observable
 ```js
 interval(1000)
 .pipe(
@@ -437,7 +437,7 @@ interval(1000)
 
 ```
 
-- combineLatest สนใจ seq และต้องมีค่าอย่างน้อย 1 อันที่ complete (คล้ายลูกผสมของ concat, merge)
+- `combineLatest` สนใจ seq และต้องมีค่าอย่างน้อย 1 อันที่ complete (คล้ายลูกผสมของ concat, merge)
 ```js
 const event$ = fromEvent(document, 'click')
 combineLatest(
@@ -463,7 +463,7 @@ plete: () => {console.log('subscribe complete')}
 ```
 
 
-- map แปลงค่าจาก ตัวหนึ่งไปเป็นอีกตัว
+- `map` แปลงค่าจาก ตัวหนึ่งไปเป็นอีกตัว
 ```js
 of(1,2,3,4).pipe(map(x => x + 10))
 .subscribe({
@@ -483,7 +483,7 @@ of(1,2,3,4).pipe(map(x => x + 10))
 ```
 
 
-- mapTo แปลงค่าจาก ตัวหนึ่งไปเป็นอีกตัว
+- `mapTo` แปลงค่าจาก ตัวหนึ่งไปเป็นอีกตัว
 ```js
 of(1,2,3,4).pipe(mapTo('AAA'))
 .subscribe({
@@ -502,7 +502,7 @@ of(1,2,3,4).pipe(mapTo('AAA'))
 // subscribe complete
 ```
 
-- reduce คือ รับ list acc , curr ทุกๆตัว default 0 เสมอ
+- `reduce` คือ รับ list acc , curr ทุกๆตัว default 0 เสมอ
 ```js
 of(1,2,3,4,5)
 .pipe(
@@ -520,7 +520,7 @@ of(1,2,3,4,5)
 // subscribe next 15
 // subscribe complete
 ```
-- pluck เอาค่าออกจาก ฟิล์ดของ object
+- `pluck` เอาค่าออกจาก ฟิล์ดของ object
 ```js
 const data = [
   {name: 'name 1', parent: { name: 'parent 1', parent: { name: 'parent 1 1'}}},
@@ -581,7 +581,7 @@ from(data)
 // subscribe complete
 ```
 
-- toArray ต้องใช้กับ obs ที่ complete
+- `toArray` ต้องใช้กับ obs ที่ complete
 ```js
 from('Hello World')
 .pipe(
@@ -600,7 +600,7 @@ from('Hello World')
 // subscribe complete
 ```
 
-- filter กรองเอาเฉพาะของที่ต้องการ
+- `filter` กรองเอาเฉพาะของที่ต้องการ
 ```js
 from('Hello World')
 .pipe(
@@ -620,7 +620,7 @@ from('Hello World')
 // subscribe complete
 ```
 
-- mergeMap ทำโดยไม่สนใจ seq
+- `mergeMap` ทำโดยไม่สนใจ seq
 ```js
 from('Hello World')
   .pipe(
@@ -648,7 +648,7 @@ from('Hello World')
 // subscribe next r
 // subscribe complete
 ```
-- concatMap ทำตาม seq
+- `concatMap` ทำตาม seq
 ```js
 from('Hello World')
   .pipe(
@@ -676,7 +676,7 @@ from('Hello World')
 // subscribe next d
 // subscribe complete
 ```
-- switchMap ทำงานโดยยึด observable ตัวสุดท้ายเป็นหลัก
+- `switchMap` ทำงานโดยยึด observable ตัวสุดท้ายเป็นหลัก
 ```js
 from('Hello World')
   .pipe(
@@ -695,7 +695,7 @@ from('Hello World')
 // subscribe complete
 ```
 
-- exhaustMap ทำงานโดยยึด observable ตัวสุดแรกเป็นหลัก จะไม่ abort ตัวแรกจนกว่าจะเสร็จ
+- `exhaustMap` ทำงานโดยยึด observable ตัวสุดแรกเป็นหลัก จะไม่ abort ตัวแรกจนกว่าจะเสร็จ
 ```js
 from('Hello World')
   .pipe(
@@ -742,8 +742,8 @@ const timer$ = merge(increase$)
 - timer creator เหมือน setTimeout
 
 
-- first เจอเงื่อนไข complete เลย
-- find
+- `first` เจอเงื่อนไข complete เลย
+- `find`
 
 # Lab 3
 ```js
@@ -790,9 +790,9 @@ interval(1)
 
 ```
 
-- debounceTime คือ จะรอจนถึง เวลาที่กำหนด แล้วจะส่งของล่าสุดออกไป (700ms)
-- throttleTime คือ เมื่อมีค่าเข้ามาส่งออกจนถึง เวลาที่กำหนด ถึงจะเปิดรับ item อันต่อไป
-- auditTime คือ เมื่อมี event แรกเข้ามา รอจนครบถึง เวลาที่กำหนด จะส่งค่าออกไป (จะไม่ abort อันเก่า)
+- `debounceTime` คือ จะรอจนถึง เวลาที่กำหนด แล้วจะส่งของล่าสุดออกไป (700ms)
+- `throttleTime` คือ เมื่อมีค่าเข้ามาส่งออกจนถึง เวลาที่กำหนด ถึงจะเปิดรับ item อันต่อไป
+- `auditTime` คือ เมื่อมี event แรกเข้ามา รอจนครบถึง เวลาที่กำหนด จะส่งค่าออกไป (จะไม่ abort อันเก่า)
 
 ## Error handering
  การจัดการกับ error ที่เกิดขึ้น
@@ -813,7 +813,7 @@ forkJoin({a:of(1),  b:throwError('e').pipe(catchError(a => of(null)))})
 // subscribe complete
 ```
 
-- retry 
+- `retry` 
 ```js
 
 interval(1000)
@@ -848,7 +848,7 @@ interval(1000)
 // error
 ```
 
-- retryWhen จะทำใหม่เมื่อไหร่
+- `retryWhen` จะทำใหม่เมื่อไหร่
 ```js
 interval(1000)
 .pipe(
@@ -883,7 +883,7 @@ interval(1000)
 // subscribe complete
 ```
 
-- delayWhen อยากให้ delay เมื่อไหร่
+- `delayWhen` อยากให้ delay เมื่อไหร่
 ```js
 from([1,2,3])
   .pipe(
@@ -903,7 +903,7 @@ from([1,2,3])
 // subscribe next 3
 // subscribe complete
 ```
-- finalize เมื่อ เข้า complete หรือ error มาช่วย handle กรณีทั้ง 2เคส
+- `finalize` เมื่อ เข้า complete หรือ error มาช่วย handle กรณีทั้ง 2เคส
 ```js
 from([1,2,3])
 .pipe(
@@ -944,7 +944,7 @@ throwError('error จ้า')
 // subscribe error: error จ้า
 // final แล้วจ้า
 ```
-- timeout ตั้งเวลา error
+- `timeout` ตั้งเวลา error
 ```js
 from([1,2,3])
 .pipe(
@@ -1003,7 +1003,7 @@ Cold เมื่อมีการ subscribe จะสร้างตัวใ�
 Hot เหมือน  (ดูบอลสดมาดูเมื่อไหร่ ได้ของตอนนั้น)
 ```
 
-- publish
+- `publish`
     ทำให้เหมือนมีโรงงานเดียวแล้วส่งของให้เหมือนกันเสมอ
     connect ให้ทำงานเมื่อไหร่
 
@@ -1071,8 +1071,8 @@ setTimeout(() => {
 // Do something
 ```
 
-- multicast
-- share 
+- `multicast`
+- `share` 
   subscribe เมื่อไหร่ก็ทำทันที (auto connect)
 ```js
 const source = interval(1000)
@@ -1114,7 +1114,7 @@ setTimeout(() => {
 // subscribe [2] next 5
 ```
 
-- shareReplay 
+- `shareReplay` 
   กำหนดได้ว่าจะ buffer ของไว้กี่ตัว
 
 ```js
@@ -1159,7 +1159,7 @@ setTimeout(() => {
 // subscribe [2] next 5
 ```
 
-- Subject
+- `Subject`
 ```js
 const sub = new Subject();
 // of().pipe(share())
@@ -1174,7 +1174,7 @@ sub.next(3)
 // 3
 ```
 
-- BehaviorSubject
+- `BehaviorSubject`
 ```js
 const sub = new BehaviorSubject(0);
 sub.next(1)
@@ -1191,7 +1191,7 @@ sub.next(3)
 // 3
 ```
 
-- ReplaySubject
+- `ReplaySubject`
 ```js
 const sub = new ReplaySubject(2);
 sub.next(1)
@@ -1201,7 +1201,7 @@ sub.subscribe(console.log)
 sub.next(3)
 ```
 
-- AsyncSubject
+- `AsyncSubject`
 
 ```js
 const sub = new AsyncSubject();
@@ -1225,7 +1225,7 @@ sub.complete();
 ```
 
 Lab 4
-```
+```js
 const api = `https://reqres.in/api/users`
 const requestApi = fetch(api).then(req => req.json())
 const data$ = from(requestApi).pipe(pluck('data'))
